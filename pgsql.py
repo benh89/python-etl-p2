@@ -1,6 +1,17 @@
 import psycopg2
 from config import pgsql_config
 
+
+def query_create(query):
+    cursor = connect()
+    cursor.execute(query)
+
+
+def query_insert(query,values):
+    cursor = connect()
+    cursor.execute(query,values)
+
+
 def query(query, values=None):
     # Connect to your postgres DB
     cursor = connect()
