@@ -1,35 +1,25 @@
 create_schema = ('''
     CREATE SCHEMA IF NOT EXISTS petl2;
     
-    DROP TABLE IF EXISTS petl2.movie_list;
     DROP TABLE IF EXISTS petl2.t_movie_list;
-    
-    CREATE TABLE IF NOT EXISTS petl2.movie_list (
-        title text,
-        rated text,
-        released text,
-        runtime text, 
-        genre text[],
-        director text,
-        writers text[],
-        actors text[],
-        plot text,
-        awards text,
-        poster text
-        );
+
     CREATE TABLE IF NOT EXISTS petl2.t_movie_list (
-        title text
- 
-
+        title text,
+        rated TEXT,
+        released DATE,
+        runtime INT,
+        genre TEXT[],
+        director TEXT,
+        writers TEXT[],
+        actors TEXT[],
+        plot TEXT,
+        awards TEXT,
+        poster TEXT
         );
 ''')
 
-insert_movie = ('''
-    INSERT INTO petl2.movie_list
-   VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
-''')
 insert_t_movie = ('''
-    INSERT INTO petl2.t_movie_list (Title)
-   VALUES(%s);
+    INSERT INTO petl2.t_movie_list 
+   VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
 ''')
 

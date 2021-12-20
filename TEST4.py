@@ -16,31 +16,15 @@ def get_movie_data(title):
     return requests.get(request_url, headers=headers).json()
 
 
-## Using for the purpose of testing data
-def unique(list1):
-    # initialize a null list
-    unique_list = []
-    new=[]
-    for x in list1:
-        # check if exists in unique_list or not
-        if x not in unique_list:
-            unique_list.append(x)
-    # print list
-    for x in unique_list:
-        print(x)
-
-
 if __name__ == '__main__':
-    query_create(sql.create_schema)
+    lineList = []
+    with open('.//datasets//json//movies.json', 'r') as f:
+        data = json.loads(f.read())
+        lineList.append(data)
+        f.close();
+    #print(lineList)
 
-    #print(get_movie_data('Inside Llewyn Davis'))
-    #print(get_movie_data('12 Strong'))
-    # get some movie data from the API
-
-    file = open('datasets/json/movies.json')
-    data = json.load(file)     #data is a list;
-    file.close()
-    #movie = []
+    ##for row in lineList:  --> that will be error!!
     for row in data:
         if row['year'] >= 2018:
             dataset = get_movie_data(row['title'])
@@ -65,20 +49,4 @@ if __name__ == '__main__':
                     _tab.append(dataset["Plot"].strip(','))
                     _tab.append(dataset["Awards"].split(","))
                     _tab.append(dataset["Poster"])
-                    # if 'N/A' not in list(filter(lambda mv: 'N/A' in mv, _tab)):
-                    query_insert(sql.insert_t_movie, _tab)
-                    #movie.append(dataset['Title'])
-                    #print(len(_tab))
-
-
-
-
-#r = json.dumps(data, indent=3)
-#print("with PrettyPrint: \n", r)
-
-
-
-
-
-
-
+            print(_tab)
